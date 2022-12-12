@@ -1,0 +1,328 @@
+from io import BufferedIOBase
+from tkinter import *
+from tkinter import ttk
+#from countries import *
+
+    
+
+class Ventana(Frame):
+    
+    #aises = Countries()
+    
+    def __init__(self, master=None):
+        super().__init__(master,width=680, height=359)
+        self.master = master
+        self.pack()
+        self.create_widgets()
+        #self.create_widgets2()
+        # self.columnconfigure(0, weight = 3)
+        # self.columnconfigure(1, weight = 3)
+        # self.columnconfigure(2, weight = 3)
+        # self._create_menu()
+        #self._create_boton_action()
+
+    def _create_menu(self):
+        self.menu = Menu(self)
+        self.config(menu=self.menu)
+        # Crear el menu de opciones
+        opciones_menu = Menu(self.menu)
+        self.menu.add_cascade(label='Opciones', menu=opciones_menu)
+        #opciones_menu.add_command(label='Login', command=self._login)
+        #opciones_menu.add_command(label='Salir', command=self.destroy)
+        #opciones_menu.add_command(label='Login')
+        opciones_menu.add_command(label='Salir')
+        # Crear el menu de ayuda
+        ayuda_menu = Menu(self.menu, tearoff=0)
+        self.menu.add_cascade(label='Ayuda', menu=ayuda_menu)
+        #ayuda_menu.add_command(label='Acerca de', command=self._acerca_de)
+        ayuda_menu.add_command(label='Acerca de')
+    
+    def _create_boton_action(self):
+        self.photo = PhotoImage(file = r"GUI/image/img/cliente.png")
+        self.photo1 = PhotoImage(file = r"GUI/image/img/producto.png")
+        self.photo2 = PhotoImage(file = r"GUI/image/img/venta.png")
+        # self.photo4 = tk.PhotoImage(file = r"GUI/image/img/pdf.png")
+        # self.photo5 = tk.PhotoImage(file = r"GUI/image/img/info.png")
+
+        btnInfo = Button(self, image = self.photo, width = 50, height = 50)
+        btnInfo1 = Button(self,  image = self.photo1, width=50, height=50)
+        btnInfo2 =  Button(self, image =  self.photo2, width=50, height=50)
+        # btnInfo3 = tk.Button(self, image = self.photo4, width = 50, height = 50)
+        # btnInfo4 = tk.Button(self, image = self.photo5, width = 50, height = 50)
+
+        btnInfo.grid(row = 1, column = 0, sticky="NWE")
+        btnInfo1.grid(row = 1, column = 1, sticky="NWE")
+        btnInfo2.grid(row = 1, column = 2, sticky="NWE")
+        # btnInfo3.grid(row = 1, column = 3, sticky="NWE")
+        # btnInfo4.grid(row = 1, column = 4, sticky="NWE")
+
+            
+
+    def create_widgets(self):
+        frame1 = Frame(self, bg="#bfdaff")
+        frame1.place(x=0,y=0,width=93, height=360)        
+        self.btnNuevo=Button(frame1,text="Nuevo", bg="blue", fg="white")
+        self.btnNuevo.place(x=5,y=50,width=80, height=30 )        
+        self.btnModificar=Button(frame1,text="Modificar", bg="blue", fg="white")
+        self.btnModificar.place(x=5,y=90,width=80, height=30)                
+        self.btnEliminar=Button(frame1,text="Eliminar", bg="blue", fg="white")
+        self.btnEliminar.place(x=5,y=130,width=80, height=30)        
+        frame2 = Frame(self,bg="#d3dde3" )
+        frame2.place(x=95,y=0,width=150, height=360) 
+
+        lbl1 = Label(frame2,text="Ingrese Codigo: ")
+        lbl1.place(x=3,y=5)        #+50 -20
+        self.txtISO3=Entry(frame2)
+        self.txtISO3.place(x=3,y=25,width=50, height=20)  #+20- 30
+
+        lbl2 = Label(frame2,text="Ingrese cantidad: ")
+        lbl2.place(x=3,y=55)        #-20
+        self.txtName=Entry(frame2)
+        self.txtName.place(x=3,y=75,width=100, height=20)     #-30
+
+        self.btnGuardar=Button(frame2,text="Cargar", bg="#9ACD32", fg="black")
+        self.btnGuardar.place(x=10,y=105,width=60, height=30)
+        self.btnCancelar=Button(frame2,text="Cancelar",  bg="orange", fg="black")
+        self.btnCancelar.place(x=80,y=105,width=60, height=30)    
+
+        # lbl3 = Label(frame2,text="Capital: ")
+        # lbl3.place(x=3,y=105)        
+        # self.txtCapital=Entry(frame2)
+        # self.txtCapital.place(x=3,y=125,width=100, height=20) 
+
+        # lbl4 = Label(frame2,text="Currency Code: ")
+        # lbl4.place(x=3,y=155)        
+        # self.txtCurrency=Entry(frame2)
+        # self.txtCurrency.place(x=3,y=175,width=50, height=20)    
+        lbl3 = Label(frame2,text="Total: ")
+        lbl3.place(x=25,y=180)        #-20
+        self.txtTotal=Entry(frame2)
+        self.txtTotal.place(x=25,y=205,width=100, height=20)     #-30
+#nombre, detalle, stock, precio
+        lbl4 = Label(frame2,text="Estado de compra: ")
+        lbl4.place(x=5,y=235)        #-20
+        self.btnGuardar=Button(frame2,text="Terminar", bg="green", fg="white")
+        self.btnGuardar.place(x=10,y=260,width=60, height=30)
+        self.btnCancelar=Button(frame2,text="Cancelar",  bg="red", fg="white")
+        self.btnCancelar.place(x=80,y=260,width=60, height=30)        
+        self.grid = ttk.Treeview(self, columns=("col1","col2","col3","col4"))        
+        self.grid.column("#0",width=50)
+        self.grid.column("col1",width=60, anchor=CENTER)
+        self.grid.column("col2",width=90, anchor=CENTER)
+        self.grid.column("col3",width=90, anchor=CENTER)
+        self.grid.column("col4",width=90, anchor=CENTER)        
+        self.grid.heading("#0", text="Id", anchor=CENTER)
+        self.grid.heading("col1", text="Nombre", anchor=CENTER)
+        self.grid.heading("col2", text="Detalle", anchor=CENTER)
+        self.grid.heading("col3", text="Cantidad", anchor=CENTER)
+        self.grid.heading("col4", text="Precio", anchor=CENTER)        
+        self.grid.place(x=247,y=0,width=420, height=360)
+
+    def create_widgets2(self):
+        frame1 = Frame(self, bg="#bfdaff")
+        frame1.place(x=0,y=0,width=100, height=359)     
+        lbl0 = Label(frame1,text="Ingrese codigo: ")
+        lbl0.place(x=0,y=5)        
+        #self.txtISO3=Entry(frame2,textvariable = self.ISO3)
+        self.txtB=Entry(frame1)
+        self.txtB.place(x=5,y=25,width=75, height=20)  
+        self.btnNuevo2=Button(frame1,text="Buscar", command="", bg="pink", fg="black")
+        self.btnNuevo2.place(x=5,y=50,width=80, height=30 )     
+        self.btnNuevo=Button(frame1,text="Nuevo", command="", bg="blue", fg="white")
+        self.btnNuevo.place(x=5,y=130,width=80, height=30 )        
+        self.btnModificar=Button(frame1,text="Modificar", command="", bg="blue", fg="white")
+        self.btnModificar.place(x=5,y=170,width=80, height=30)                
+        self.btnEliminar=Button(frame1,text="Eliminar", command="", bg="blue", fg="white")
+        self.btnEliminar.place(x=5,y=210,width=80, height=30)        
+        frame2 = Frame(self,bg="#d3dde3" )
+        frame2.place(x=101,y=0,width=150, height=359)                        
+        lbl1 = Label(frame2,text="Nombre: ")
+        lbl1.place(x=3,y=5)        
+        #self.txtISO3=Entry(frame2,textvariable = self.ISO3)
+        self.txtISO3=Entry(frame2)
+        self.txtISO3.place(x=3,y=25,width=75, height=20)                
+        lbl2 = Label(frame2,text="Detalle: ")
+        lbl2.place(x=3,y=55)        
+        self.txtName=Entry(frame2)
+        self.txtName.place(x=3,y=75,width=100, height=20)        
+        lbl3 = Label(frame2,text="Stock: ")
+        lbl3.place(x=3,y=105)        
+        self.txtCapital=Entry(frame2)
+        self.txtCapital.place(x=3,y=125,width=100, height=20)        
+        lbl4 = Label(frame2,text="Precio: ")
+        lbl4.place(x=3,y=155)        
+        self.txtCurrency=Entry(frame2)
+        self.txtCurrency.place(x=3,y=175,width=50, height=20)        
+        self.btnGuardar=Button(frame2,text="Guardar", command="", bg="green", fg="white")
+        self.btnGuardar.place(x=10,y=210,width=60, height=30)
+        self.btnCancelar=Button(frame2,text="Cancelar", command="", bg="red", fg="white")
+        self.btnCancelar.place(x=80,y=210,width=60, height=30) 
+
+        lbl22 = Label(frame2,text="Modificar Stock: ")
+        lbl22.place(x=3,y=275)        #-20
+        self.txtName3=Entry(frame2)
+        self.txtName3.place(x=3,y=295,width=100, height=20)     #-30
+
+        self.btnGuardar2=Button(frame2,text="Sumar", bg="#9ACD32", fg="black")
+        self.btnGuardar2.place(x=10,y=325,width=60, height=30)
+        self.btnCancelar2=Button(frame2,text="Restar",  bg="orange", fg="black")
+        self.btnCancelar2.place(x=80,y=325,width=60, height=30)  
+        # frame4 = Frame(self,bg="pink" )
+        # frame4.place(x=0,y=260,width=450, height=150)                        
+        #lbl5 = Label(frame4,text="Precio: ")
+        #lbl5.place(x=3,y=280)        
+        # self.txtCurrency2=Entry(frame4)
+        # self.txtCurrency2.place(x=3,y=300,width=50, height=20)        
+        # self.btnGuardar2=Button(frame4,text="Guardar", command="", bg="green", fg="white")
+        # self.btnGuardar2.place(x=10,y=330,width=60, height=30)        
+        frame3 = Frame(self,bg="yellow" )
+        frame3.place(x=247,y=0,width=420, height=359)                      
+        self.grid = ttk.Treeview(frame3, columns=("col1","col2","col3","col4"))        
+        self.grid.column("#0",width=60)
+        self.grid.column("col1",width=70, anchor=CENTER)
+        self.grid.column("col2",width=90, anchor=CENTER)
+        self.grid.column("col3",width=90, anchor=CENTER)
+        self.grid.column("col4",width=90, anchor=CENTER)        
+        self.grid.heading("#0", text="Id", anchor=CENTER)
+        self.grid.heading("col1", text="Nombre", anchor=CENTER)
+        self.grid.heading("col2", text="Detalle", anchor=CENTER)
+        self.grid.heading("col3", text="Stock", anchor=CENTER)
+        self.grid.heading("col4", text="Precio", anchor=CENTER)                
+        self.grid.pack(side=LEFT,fill = Y)        
+        sb = Scrollbar(frame3, orient=VERTICAL)
+        sb.pack(side=RIGHT, fill = Y)
+        self.grid.config(yscrollcommand=sb.set)
+        sb.config(command=self.grid.yview)
+        self.grid['selectmode']='browse' 
+
+
+    def create_widgets3(self):
+        frame1 = Frame(self, bg="#bfdaff")
+        frame1.place(x=0,y=0,width=100, height=359)     
+        lbl0 = Label(frame1,text="Ingrese dni: ")
+        lbl0.place(x=0,y=5)        
+        #self.txtISO3=Entry(frame2,textvariable = self.ISO3)
+        self.txtB=Entry(frame1)
+        self.txtB.place(x=5,y=25,width=75, height=20)  
+        self.btnNuevo2=Button(frame1,text="Buscar", command="", bg="pink", fg="black")
+        self.btnNuevo2.place(x=5,y=50,width=80, height=30 )     
+        self.btnNuevo=Button(frame1,text="Nuevo", command="", bg="blue", fg="white")
+        self.btnNuevo.place(x=5,y=130,width=80, height=30 )        
+        self.btnModificar=Button(frame1,text="Modificar", command="", bg="blue", fg="white")
+        self.btnModificar.place(x=5,y=170,width=80, height=30)                
+        self.btnEliminar=Button(frame1,text="Eliminar", command="", bg="blue", fg="white")
+        self.btnEliminar.place(x=5,y=210,width=80, height=30)        
+        frame2 = Frame(self,bg="#d3dde3" )
+        frame2.place(x=101,y=0,width=150, height=359)                        
+        lbl1 = Label(frame2,text="Nombre: ")
+        lbl1.place(x=3,y=5)        
+        #self.txtISO3=Entry(frame2,textvariable = self.ISO3)
+        self.txtISO3=Entry(frame2)
+        self.txtISO3.place(x=3,y=25,width=75, height=20)                
+        lbl2 = Label(frame2,text="Apellido: ")
+        lbl2.place(x=3,y=55)        
+        self.txtName=Entry(frame2)
+        self.txtName.place(x=3,y=75,width=100, height=20)        
+        lbl3 = Label(frame2,text="Dni: ")
+        lbl3.place(x=3,y=105)        
+        self.txtCapital=Entry(frame2)
+        self.txtCapital.place(x=3,y=125,width=100, height=20)        
+        lbl4 = Label(frame2,text="Condicion: ")
+        lbl4.place(x=3,y=155)        
+        self.txtCurrency=Entry(frame2)
+        self.txtCurrency.place(x=3,y=175,width=50, height=20)        
+        self.btnGuardar=Button(frame2,text="Guardar", command="", bg="green", fg="white")
+        self.btnGuardar.place(x=10,y=210,width=60, height=30)
+        self.btnCancelar=Button(frame2,text="Cancelar", command="", bg="red", fg="white")
+        self.btnCancelar.place(x=80,y=210,width=60, height=30) 
+
+        # lbl22 = Label(frame2,text="Modificar Stock: ")
+        # lbl22.place(x=3,y=275)        #-20
+        # self.txtName3=Entry(frame2)
+        # self.txtName3.place(x=3,y=295,width=100, height=20)     #-30
+
+        # self.btnGuardar2=Button(frame2,text="Sumar", bg="#9ACD32", fg="black")
+        # self.btnGuardar2.place(x=10,y=325,width=60, height=30)
+        # self.btnCancelar2=Button(frame2,text="Restar",  bg="orange", fg="black")
+        # self.btnCancelar2.place(x=80,y=325,width=60, height=30)  
+        # # frame4 = Frame(self,bg="pink" )
+        # frame4.place(x=0,y=260,width=450, height=150)                        
+        #lbl5 = Label(frame4,text="Precio: ")
+        #lbl5.place(x=3,y=280)        
+        # self.txtCurrency2=Entry(frame4)
+        # self.txtCurrency2.place(x=3,y=300,width=50, height=20)        
+        # self.btnGuardar2=Button(frame4,text="Guardar", command="", bg="green", fg="white")
+        # self.btnGuardar2.place(x=10,y=330,width=60, height=30)        
+        frame3 = Frame(self,bg="yellow" )
+        frame3.place(x=247,y=0,width=420, height=359)                      
+        self.grid = ttk.Treeview(frame3, columns=("col1","col2","col3","col4"))        
+        self.grid.column("#0",width=60)
+        self.grid.column("col1",width=70, anchor=CENTER)
+        self.grid.column("col2",width=90, anchor=CENTER)
+        self.grid.column("col3",width=90, anchor=CENTER)
+        self.grid.column("col4",width=90, anchor=CENTER)        
+        self.grid.heading("#0", text="Id", anchor=CENTER)
+        self.grid.heading("col1", text="Nombre", anchor=CENTER)
+        self.grid.heading("col2", text="Apellido", anchor=CENTER)
+        self.grid.heading("col3", text="Dni", anchor=CENTER)
+        self.grid.heading("col4", text="Condicion", anchor=CENTER)                
+        self.grid.pack(side=LEFT,fill = Y)        
+        sb = Scrollbar(frame3, orient=VERTICAL)
+        sb.pack(side=RIGHT, fill = Y)
+        self.grid.config(yscrollcommand=sb.set)
+        sb.config(command=self.grid.yview)
+        self.grid['selectmode']='browse' 
+
+    def create_widgets4(self):
+        frame1 = Frame(self, bg="#bfdaff")
+        frame1.place(x=0,y=0,width=240, height=359)     
+        lbl0 = Label(frame1,text="Ingrese dni: ")
+        lbl0.place(x=10,y=25)        
+        #self.txtISO3=Entry(frame2,textvariable = self.ISO3)
+        self.txtB=Entry(frame1)
+        self.txtB.place(x=95,y=25,width=100, height=20)  
+        self.btnNuevo2=Button(frame1,text="Buscar", command="", bg="pink", fg="black")
+        self.btnNuevo2.place(x=5,y=55,width=100, height=30 )     
+
+        frame2 = Frame(self,bg="yellow" )
+        frame2.place(x=0,y=90,width=240, height=250)                      
+        self.grid2 = ttk.Treeview(frame2, columns=("col1","col2","col3"))        
+        self.grid2.column("#0",width=60)
+        self.grid2.column("col1",width=70, anchor=CENTER)
+        self.grid2.column("col2",width=35, anchor=CENTER)
+        self.grid2.column("col3",width=75, anchor=CENTER)
+        # self.grid.column("col4",width=90, anchor=CENTER)        
+        self.grid2.heading("#0", text="Producto", anchor=CENTER)
+        self.grid2.heading("col1", text="Detalle", anchor=CENTER)
+        self.grid2.heading("col2", text="Unid", anchor=CENTER)
+        self.grid2.heading("col3", text="Importe", anchor=CENTER)
+        self.grid2.pack(side=LEFT,fill = Y)    
+        
+        frame3 = Frame(self,bg="yellow" )
+        frame3.place(x=247,y=0,width=420, height=359)                      
+        self.grid = ttk.Treeview(frame3, columns=("col1","col2","col3","col4"))        
+        self.grid.column("#0",width=60)
+        self.grid.column("col1",width=70, anchor=CENTER)
+        self.grid.column("col2",width=90, anchor=CENTER)
+        self.grid.column("col3",width=90, anchor=CENTER)
+        self.grid.column("col4",width=90, anchor=CENTER)        
+        self.grid.heading("#0", text="Id", anchor=CENTER)
+        self.grid.heading("col1", text="IdPersona", anchor=CENTER)
+        self.grid.heading("col2", text="Fecha", anchor=CENTER)
+        self.grid.heading("col3", text="Estado", anchor=CENTER)
+        self.grid.heading("col4", text="Total", anchor=CENTER)                
+        self.grid.pack(side=LEFT,fill = Y)        
+        sb = Scrollbar(frame3, orient=VERTICAL)
+        sb.pack(side=RIGHT, fill = Y)
+        self.grid.config(yscrollcommand=sb.set)
+        sb.config(command=self.grid.yview)
+        self.grid['selectmode']='browse' 
+
+        
+# if __name__ == '__main__':
+#     login_ventana = Ventana()
+#     login_ventana.mainloop()        
+   
+        
+        
+        
